@@ -1,0 +1,19 @@
+CAPI=2:
+
+name: polito:isa-lab:inoutt:1.0.0
+description: Simple input/output buffer peripheral
+
+filesets:
+  rtl:
+    files:
+      - RTL/inoutt_obi_pkg.sv
+      - RTL/inoutt_reg_pkg.sv
+      - RTL/inoutt.sv
+      - RTL/inoutt_obi.sv
+    file_type: systemVerilogSource
+
+targets:
+  default:
+    filesets:
+      - rtl
+    toplevel: inoutt_obi

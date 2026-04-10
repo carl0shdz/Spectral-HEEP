@@ -1,0 +1,31 @@
+
+`verilator_config
+
+// -------------------------------------------------------------
+// HLS top module
+// -------------------------------------------------------------
+
+lint_off -rule UNUSED    -file "*/Avg_Cent.v"
+lint_off -rule UNDRIVEN  -file "*/Avg_Cent.v"
+lint_off -rule WIDTH     -file "*/Avg_Cent.v"
+lint_off -rule DECLFILENAME -file "*/Avg_Cent.v"
+
+// -------------------------------------------------------------
+// HLS generated submodules
+// -------------------------------------------------------------
+
+lint_off -rule UNUSED    -file "*/Avg_Cent_*.sv"
+lint_off -rule UNDRIVEN  -file "*/Avg_Cent_*.sv"
+lint_off -rule WIDTH     -file "*/Avg_Cent_*.sv"
+lint_off -rule DECLFILENAME -file "*/Avg_Cent_*.sv"
+
+// -------------------------------------------------------------
+// HLS RAM blocks
+// -------------------------------------------------------------
+
+lint_off -rule STMTDLY  -file "*Averague*"
+lint_off -rule WIDTH    -file "*Averague*"
+lint_off -rule UNUSED   -file "*Averague*"
+lint_off -rule UNDRIVEN -file "*Averague*"
+lint_off -rule DECLFILENAME -file "*Averague*"
+lint_off -rule SYNCASYNCNET -file "*Averague*"

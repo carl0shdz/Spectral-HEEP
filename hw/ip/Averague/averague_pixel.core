@@ -1,0 +1,38 @@
+CAPI=2:
+
+# File: averague_pixel.core
+# Author(s):
+#   Carlos Hernandez
+# Date: 24/03/2026
+# Description: Averague_Pixel core file for FuseSoC
+
+name: polito:isa-lab:averague:1.0.0
+description: Operator of averague pixel to hyperspectra block of data.
+
+filesets:
+  # RTL description
+  rtl:
+    files:
+    - rtl/averague_obi_pkg.sv
+    - rtl/averague_reg_pkg.sv
+    - rtl/averague_pixel_obi.sv
+    - rtl/AveragePixelTop.sv
+    - rtl/Avg_Cent.v
+    - rtl/Avg_Cent_Avg_Cent_Pipeline_cpy_cent.v
+    - rtl/Avg_Cent_Avg_Cent_Pipeline_sum_p_loop_sum_b_loop.v
+    - rtl/Avg_Cent_flow_control_loop_pipe_sequential_init.v
+    - rtl/Avg_Cent_icentroid_RAM_AUTO_1R1W.v
+    - rtl/Avg_Cent_mul_32ns_34ns_65_2_1.v
+    - rtl/FIFO_V1.sv
+    - rtl/FIFO_V2.sv
+    - averague_verilator.vlt : {file_type: vlt}
+    file_type: systemVerilogSource
+
+
+targets:
+  default: 
+    filesets:
+    - rtl
+    toplevel: averague_pixel_obi
+
+

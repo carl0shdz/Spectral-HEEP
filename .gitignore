@@ -1,0 +1,19 @@
+*.log
+build/
+*.so
+*.hex
+*.elf
+*.dis
+*.map
+*.do
+*.jou
+*.str
+.Xil/
+.venv/
+__pycache__/
+
+# Apps output files
+run_verif_rtl_log.txt
+
+# Automatically generated hw files
+tb/tb_util.svh
