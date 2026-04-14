@@ -66,6 +66,17 @@ module averague_pixel_obi #(
       .empty(fifo0_empty)   //
   );
 
+  /*fifo_generator_0 Fifo_In (
+      .clk  (clk_i),        // Conectas tus señales de SV
+      .srst (!rst_ni),      // Ojo: X-HEEP suele usar reset low, tu FIFO es reset high
+      .din  (fifo0_din),
+      .wr_en(fifo0_wr_en),
+      .rd_en(fifo0_rd_en),
+      .dout (fifo0_dout),
+      .full (fifo0_full),
+      .empty(fifo0_empty)
+  );*/
+
   // Instancia de FIFO_1 salida de datos.
   FIFO_V2 u_fifo_1 (
       .clk  (clk_i),
@@ -119,7 +130,7 @@ module averague_pixel_obi #(
         Flag_state <= 1'b1;
       end else if (done_ave) begin
         Flag_state <= 1'b0;
-        $display("----Ciclos totales: %d", conta1);
+        $display("--Ciclos totales--: %d", conta1);
       end
 
     end
@@ -134,8 +145,8 @@ module averague_pixel_obi #(
   logic obi_rvalid_q;
   logic [15:0] obi_rdata_q;
   assign obi_rdata_q = '0;
-  assign obi_gnt = obi_req_i.req;
-  assign fifo0_wr_en = (obi_req_i.req && obi_req_i.we && obi_req_i.addr == OBI_ADDR_DATAIN && !fifo0_full) ? 1'b1 : 1'b0;
+  assign obi_gnt = obi_req_i.req && (obi_req_i.addr == OBI_ADDR_DATAIN) && !fifo0_full;
+  assign fifo0_wr_en = (obi_gnt && obi_req_i.we) ? 1'b1 : 1'b0;
   assign fifo0_din = obi_req_i.wdata[W-1:0];
   always_ff @(posedge clk_i or negedge rst_ni) begin
     if (!rst_ni) begin
@@ -200,4 +211,3 @@ module averague_pixel_obi #(
       };
 
 endmodule
-

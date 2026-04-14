@@ -7,7 +7,7 @@
 // Design Name: 
 // Module Name: AveragePixelTop
 // Project Name: 
-// Target Devices: 
+// Target Devices: Nexys a7 100t
 // Tool Versions: 
 // Description: 
 // 

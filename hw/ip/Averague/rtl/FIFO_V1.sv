@@ -13,12 +13,14 @@ module FIFO_V1 (
 
   // Parámetros
   localparam DATA_WIDTH = 16;
-  localparam DEPTH = 1920;
+  //localparam DEPTH = 1920;
   //localparam DEPTH = 512;
+  localparam DEPTH = 128;
   //localparam DEPTH = 32;
   //localparam DEPTH = 4;
+  //localparam DEPTH = 1;
 
-  localparam ADDR_WIDTH = 11;  // log2(DEPTH*BANDS) = 18
+  localparam ADDR_WIDTH = 7;  // log2(DEPTH*BANDS) = 18
 
   // Memoria FIFO
   logic [DATA_WIDTH-1:0] mem[0:DEPTH-1];
