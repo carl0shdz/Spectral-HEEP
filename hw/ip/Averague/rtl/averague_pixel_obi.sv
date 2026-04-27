@@ -192,13 +192,33 @@ module averague_pixel_obi #(
   logic obi_gnt_2;
   logic obi_rvalid_q_2;
   logic [15:0] obi_rdata_q_2;
-  assign obi_gnt_2 = obi_req_i_2.req;
-  assign fifo1_rd_en = (obi_req_i_2.req && !obi_req_i_2.we && obi_req_i_2.addr == OBI_ADDR_DATAOUT && !fifo1_empty) ? 1'b1 : 1'b0;
+  //logic pending_read;
+
+  //assign obi_gnt_2 = obi_req_i_2.req;
+  assign obi_gnt_2 = obi_req_i_2.req && (obi_req_i_2.addr == OBI_ADDR_DATAOUT) && !fifo1_empty;
+  //assign obi_gnt_2 = obi_req_i_2.req && !obi_req_i_2.we && (obi_req_i_2.addr == OBI_ADDR_DATAOUT) && !pending_read;
+  //assign fifo1_rd_en = (pending_read && !fifo1_empty);
+  assign fifo1_rd_en = obi_gnt_2 && !obi_req_i_2.we;
   assign obi_rdata_q_2 = fifo1_dout;
+
   always_ff @(posedge clk_i or negedge rst_ni) begin
     if (!rst_ni) begin
+      //pending_read   <= 1'b0;
       obi_rvalid_q_2 <= 1'b0;
     end else begin
+      //obi_rvalid_q_2 <= 1'b0;
+
+      //if (obi_gnt_2) begin
+      //  pending_read <= 1'b1;
+      //$display("X1");
+      //end
+
+      //if (pending_read && !fifo1_empty) begin
+      //  obi_rvalid_q_2 <= 1'b1;  // Avisamos al DMA que aquí está su dato
+      //  pending_read   <= 1'b0;  // Ya no debemos nada
+      //$display("X2");
+      //end
+
       obi_rvalid_q_2 <= obi_gnt_2;
       //obi_rdata_q_2  <= fifo1_dout;
     end

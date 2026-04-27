@@ -26,7 +26,7 @@ filesets:
     - rtl/FIFO_V1.sv
     - rtl/FIFO_V2.sv
     - averague_verilator.vlt : {file_type: vlt}
-    #- rtl/fifo_generator_0.v
+    #- data/fifo_generator_0.xci : {file_type: xci}
     file_type: systemVerilogSource
 
 

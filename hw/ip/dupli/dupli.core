@@ -1,0 +1,38 @@
+CAPI=2:
+
+# File: dupli.core
+# Author(s):
+#   Carlos Hernandez
+# Date: 23/04/2026
+# Description: dupli core file for FuseSoC
+
+name: polito:isa-lab:dupli:1.0.0
+description: Operator of averague pixel to hyperspectra block of data.
+
+filesets:
+  # RTL description
+  rtl:
+    files:
+    - rtl/dupli_obi_pkg.sv
+    - rtl/dupli_reg_pkg.sv
+    - rtl/averague_pixel_obi.sv
+    - rtl/dupliTop.sv
+    - rtl/Avg_dup.v
+    - rtl/Avg_dup_Block_entry1_proc.v
+    - rtl/Avg_dup_duplicateAndCentralizeImg.v
+    - rtl/Avg_dup_duplicateAndCentralizeImg_centroid_RAM_AUTO_1R1W.v
+    - rtl/Avg_dup_flow_control_loop_pipe_sequential_init.v
+    - rtl/FIFO_V1.sv
+    - rtl/FIFO_V2.sv
+    - dupli_verilator.vlt : {file_type: vlt}
+    #- data/fifo_generator_0.xci : {file_type: xci}
+    file_type: systemVerilogSource
+
+
+targets:
+  default: 
+    filesets:
+    - rtl
+    toplevel: dupli_obi
+
+

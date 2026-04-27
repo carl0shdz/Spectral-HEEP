@@ -1,0 +1,31 @@
+
+`verilator_config
+
+// -------------------------------------------------------------
+// HLS top module
+// -------------------------------------------------------------
+
+lint_off -rule UNUSED    -file "*/Avg_dup.v"
+lint_off -rule UNDRIVEN  -file "*/Avg_dup.v"
+lint_off -rule WIDTH     -file "*/Avg_dup.v"
+lint_off -rule DECLFILENAME -file "*/Avg_dup.v"
+
+// -------------------------------------------------------------
+// HLS generated submodules
+// -------------------------------------------------------------
+
+lint_off -rule UNUSED    -file "*/Avg_dup_*.sv"
+lint_off -rule UNDRIVEN  -file "*/Avg_dup_*.sv"
+lint_off -rule WIDTH     -file "*/Avg_dup_*.sv"
+lint_off -rule DECLFILENAME -file "*/Avg_dup_*.sv"
+
+// -------------------------------------------------------------
+// HLS RAM blocks
+// -------------------------------------------------------------
+
+lint_off -rule STMTDLY  -file "*dupli*"
+lint_off -rule WIDTH    -file "*dupli*"
+lint_off -rule UNUSED   -file "*dupli*"
+lint_off -rule UNDRIVEN -file "*dupli*"
+lint_off -rule DECLFILENAME -file "*dupli*"
+lint_off -rule SYNCASYNCNET -file "*dupli*"

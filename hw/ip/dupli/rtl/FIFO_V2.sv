@@ -1,4 +1,4 @@
-module FIFO_V1 (
+module FIFO_V2 (
     input logic clk,
     input logic rst_n,
 
@@ -13,14 +13,9 @@ module FIFO_V1 (
 
   // Parámetros
   localparam DATA_WIDTH = 16;
-  //localparam DEPTH = 1920;
-  //localparam DEPTH = 512;
-  localparam DEPTH = 128;
-  //localparam DEPTH = 32;
-  //localparam DEPTH = 4;
-  //localparam DEPTH = 1;
+  localparam DEPTH = 16;  //120*16
 
-  localparam ADDR_WIDTH = 7;  // log2(DEPTH*BANDS) = 18
+  localparam ADDR_WIDTH = 4;  // log2(DEPTH*BANDS) = 18
 
   // Memoria FIFO
   logic [DATA_WIDTH-1:0] mem[0:DEPTH-1];
@@ -30,7 +25,7 @@ module FIFO_V1 (
   logic [ADDR_WIDTH-1:0] rd_ptr;
 
   // Contador de elementos
-  logic [ADDR_WIDTH:0] count;
+  logic [ADDR_WIDTH:0] count;  // 11 bits para contar hasta 1024
 
   // Escritura
   always_ff @(posedge clk or negedge rst_n) begin
@@ -38,36 +33,24 @@ module FIFO_V1 (
       wr_ptr <= '0;
     end else if (wr_en && !full) begin
       mem[wr_ptr] <= din;
-      if (wr_ptr == 1 || wr_ptr == 2) begin
-        $display("F1 IN = %d, Index = %d", din, wr_ptr);
-      end
-      if (wr_ptr == DEPTH - 1) begin
-        wr_ptr <= '0;
-      end else begin
-        wr_ptr <= wr_ptr + 1'b1;
-      end
+      $display("F2 IN = %d, Index = %d", din, wr_ptr);
+      wr_ptr <= wr_ptr + 1'b1;
     end
   end
 
-
+  // Lectura
   always_ff @(posedge clk or negedge rst_n) begin
     if (!rst_n) begin
       rd_ptr <= '0;
+      dout   <= '0;
     end else if (rd_en && !empty) begin
-      if (rd_ptr == 1 || rd_ptr == 2) begin
-        $display("F1 OUT = %d, Index = %d", mem[rd_ptr], rd_ptr);
-      end
-      if (rd_ptr == DEPTH - 1) begin
-        rd_ptr <= '0;
-      end else begin
-        rd_ptr <= rd_ptr + 1'b1;
-      end
+      dout <= mem[rd_ptr];
+      $display("F2 OUT = %d, Index = %d", mem[rd_ptr], rd_ptr);
+      rd_ptr <= rd_ptr + 1'b1;
     end
   end
 
-  assign dout = empty ? 16'd0 : mem[rd_ptr];
-
-
+  // Contador de elementos
   always_ff @(posedge clk or negedge rst_n) begin
     if (!rst_n) begin
       count <= '0;
@@ -87,4 +70,3 @@ module FIFO_V1 (
   assign empty = (count == 0);
 
 endmodule
-
