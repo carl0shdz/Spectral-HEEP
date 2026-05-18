@@ -38,7 +38,9 @@ filesets:
     - x-heep:ip:pdm2pcm
     - esl_epfl:ip:obi_spi_slave
     #- polito:isa-lab:inoutt:1.0.0
-    - polito:isa-lab:averague:1.0.0
+    #- polito:isa-lab:averague:1.0.0
+    - polito:isa-lab:dma_hw_ff:1.0.0
+    - polito:isa-lab:dupli:1.0.0
     files:
     - hw/core-v-mini-mcu/core_v_mini_mcu.sv
     - hw/core-v-mini-mcu/cpu_subsystem.sv

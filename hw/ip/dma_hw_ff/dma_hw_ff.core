@@ -1,0 +1,27 @@
+CAPI=2:
+
+name: polito:isa-lab:dma_hw_ff:1.0.0
+description: Example for dma hardware fifo.
+
+filesets:
+  rtl:
+    files:
+    - rtl/dma_fifo_pkg.sv
+    - rtl/dma_hw_ff.sv
+    - rtl/centro/AveragePixelTop.sv
+    - rtl/centro/Avg_Cent.v
+    - rtl/centro/Avg_Cent_Avg_Cent_Pipeline_cpy_cent.v
+    - rtl/centro/Avg_Cent_Avg_Cent_Pipeline_sum_p_loop_sum_b_loop.v
+    - rtl/centro/Avg_Cent_flow_control_loop_pipe_sequential_init.v
+    - rtl/centro/Avg_Cent_icentroid_RAM_AUTO_1R1W.v
+    - rtl/centro/Avg_Cent_mul_32ns_34ns_65_2_1.v
+    - dma_hw_ff.vlt : {file_type: vlt}
+    file_type: systemVerilogSource
+
+targets:
+  default: 
+    filesets:
+    - rtl
+    toplevel: dma_hw_ff
+
+
