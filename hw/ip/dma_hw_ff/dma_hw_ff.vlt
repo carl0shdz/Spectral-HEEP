@@ -1,0 +1,51 @@
+
+`verilator_config
+
+lint_off -rule UNOPTFLAT -file "*/dma_hw_ff.sv"
+lint_off -rule UNUSED    -file "*/dma_hw_ff.sv"
+lint_off -rule UNDRIVEN  -file "*/dma_hw_ff.sv"
+lint_off -rule WIDTH     -file "*/dma_hw_ff.sv"
+lint_off -rule DECLFILENAME -file "*/dma_hw_ff.sv"
+
+// -------------------------------------------------------------
+// HLS top module centra
+// -------------------------------------------------------------
+
+lint_off -rule UNUSED    -file "*/Avg_Cent.v"
+lint_off -rule UNDRIVEN  -file "*/Avg_Cent.v"
+lint_off -rule WIDTH     -file "*/Avg_Cent.v"
+lint_off -rule DECLFILENAME -file "*/Avg_Cent.v"
+
+// -------------------------------------------------------------
+// HLS generated submodules centra
+// -------------------------------------------------------------
+
+lint_off -rule UNUSED    -file "*/Avg_Cent_*.sv"
+lint_off -rule UNDRIVEN  -file "*/Avg_Cent_*.sv"
+lint_off -rule WIDTH     -file "*/Avg_Cent_*.sv"
+lint_off -rule DECLFILENAME -file "*/Avg_Cent_*.sv"
+
+// -------------------------------------------------------------
+// HLS top module duplicate
+// -------------------------------------------------------------
+
+lint_off -rule UNUSED    -file "*/Avg_dup.v"
+lint_off -rule UNDRIVEN  -file "*/Avg_dup.v"
+lint_off -rule WIDTH     -file "*/Avg_dup.v"
+lint_off -rule DECLFILENAME -file "*/Avg_dup.v"
+
+// -------------------------------------------------------------
+// HLS generated submodules duplicate
+// -------------------------------------------------------------
+
+lint_off -rule UNUSED    -file "*/Avg_dup_*.sv"
+lint_off -rule UNDRIVEN  -file "*/Avg_dup_*.sv"
+lint_off -rule WIDTH     -file "*/Avg_dup_*.sv"
+lint_off -rule DECLFILENAME -file "*/Avg_dup_*.sv"
+
+lint_off -rule STMTDLY  -file "*dma_hw_ff*"
+lint_off -rule WIDTH    -file "*dma_hw_ff*"
+lint_off -rule UNUSED   -file "*dma_hw_ff*"
+lint_off -rule UNDRIVEN -file "*dma_hw_ff*"
+lint_off -rule DECLFILENAME -file "*dma_hw_ff*"
+lint_off -rule SYNCASYNCNET -file "*dma_hw_ff*"

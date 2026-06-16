@@ -1,0 +1,28 @@
+CAPI=2:
+
+name: polito:isa-lab:dupli:1.0.0
+description: Example for dma hardware fifo.
+
+filesets:
+  rtl:
+    files:
+    - rtl/dupli_pkg.sv
+    - rtl/dupli.sv
+    - rtl/dupli/DupliTop.sv
+    - rtl/dupli/Avg_dup.v
+    - rtl/dupli/Avg_dup_Block_entry1_proc.v
+    - rtl/dupli/Avg_dup_duplicateAndCentralizeImg.v
+    - rtl/dupli/Avg_dup_duplicateAndCentralizeImg_centroid_RAM_AUTO_1R1W.v
+    - rtl/dupli/Avg_dup_duplicateAndCentralizeImg_Pipeline_cent_p_loop_cent_b_loop.v
+    - rtl/dupli/Avg_dup_duplicateAndCentralizeImg_Pipeline_cent_storage.v
+    - rtl/dupli/Avg_dup_flow_control_loop_pipe_sequential_init.v
+    - dupli.vlt : {file_type: vlt}
+    file_type: systemVerilogSource
+
+targets:
+  default: 
+    filesets:
+    - rtl
+    toplevel: dupli
+
+

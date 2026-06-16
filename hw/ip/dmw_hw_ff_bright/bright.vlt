@@ -1,0 +1,42 @@
+
+`verilator_config
+
+lint_off -rule UNOPTFLAT -file "*/brightn.sv"
+lint_off -rule UNUSED    -file "*/brightn.sv"
+lint_off -rule UNDRIVEN  -file "*/brightn.sv"
+lint_off -rule WIDTH     -file "*/brightn.sv"
+lint_off -rule DECLFILENAME -file "*/brightn.sv"
+
+// -------------------------------------------------------------
+// HLS top module centra
+// -------------------------------------------------------------
+
+lint_off -rule UNUSED    -file "*/BRIGHT.v"
+lint_off -rule UNDRIVEN  -file "*/BRIGHT.v"
+lint_off -rule WIDTH     -file "*/BRIGHT.v"
+lint_off -rule DECLFILENAME -file "*/BRIGHT.v"
+
+// -------------------------------------------------------------
+// HLS generated submodules centra
+// -------------------------------------------------------------
+
+lint_off -rule UNUSED    -file "*/BRIGHT_*.sv"
+lint_off -rule UNDRIVEN  -file "*/BRIGHT_*.sv"
+lint_off -rule WIDTH     -file "*/BRIGHT_*.sv"
+lint_off -rule DECLFILENAME -file "*/BRIGHT_*.sv"
+
+// -------------------------------------------------------------
+// HLS generated submodules duplicate
+// -------------------------------------------------------------
+
+lint_off -rule UNUSED    -file "*/BRIGHT_*.sv"
+lint_off -rule UNDRIVEN  -file "*/BRIGHT_*.sv"
+lint_off -rule WIDTH     -file "*/BRIGHT__*.sv"
+lint_off -rule DECLFILENAME -file "*/BRIGHT_*.sv"
+
+lint_off -rule STMTDLY  -file "*dmw_hw_ff_bright*"
+lint_off -rule WIDTH    -file "*dmw_hw_ff_bright*"
+lint_off -rule UNUSED   -file "*dmw_hw_ff_bright*"
+lint_off -rule UNDRIVEN -file "*dmw_hw_ff_bright*"
+lint_off -rule DECLFILENAME -file "*dmw_hw_ff_bright*"
+lint_off -rule SYNCASYNCNET -file "*dmw_hw_ff_bright*"

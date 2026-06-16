@@ -1,0 +1,57 @@
+
+`verilator_config
+
+lint_off -rule UNOPTFLAT -file "*/Pro_Sub.sv"
+lint_off -rule UNUSED    -file "*/Pro_Sub.sv"
+lint_off -rule UNDRIVEN  -file "*/Pro_Sub.sv"
+lint_off -rule WIDTH     -file "*/Pro_Sub.sv"
+lint_off -rule DECLFILENAME -file "*/Pro_Sub.sv"
+
+// -------------------------------------------------------------
+// HLS top module centra
+// -------------------------------------------------------------
+
+lint_off -rule UNUSED    -file "*/SUBTRACTION.v"
+lint_off -rule UNDRIVEN  -file "*/SUBTRACTION.v"
+lint_off -rule WIDTH     -file "*/SUBTRACTION.v"
+lint_off -rule DECLFILENAME -file "*/SUBTRACTION.v"
+
+lint_off -rule UNUSED    -file "*/PROJECTION.v"
+lint_off -rule UNDRIVEN  -file "*/PROJECTION.v"
+lint_off -rule WIDTH     -file "*/PROJECTION.v"
+lint_off -rule DECLFILENAME -file "*/PROJECTION.v"
+
+// -------------------------------------------------------------
+// HLS generated submodules centra
+// -------------------------------------------------------------
+
+lint_off -rule UNUSED    -file "*/SUBTRACTION_*.sv"
+lint_off -rule UNDRIVEN  -file "*/SUBTRACTION_*.sv"
+lint_off -rule WIDTH     -file "*/SUBTRACTION_*.sv"
+lint_off -rule DECLFILENAME -file "*/SUBTRACTION_*.sv"
+
+lint_off -rule UNUSED    -file "*/PROJECTION_*.sv"
+lint_off -rule UNDRIVEN  -file "*/PROJECTION_*.sv"
+lint_off -rule WIDTH     -file "*/PROJECTION_*.sv"
+lint_off -rule DECLFILENAME -file "*/PROJECTION_*.sv"
+
+// -------------------------------------------------------------
+// HLS generated submodules duplicate
+// -------------------------------------------------------------
+
+lint_off -rule UNUSED    -file "*/SUBTRACTION_*.sv"
+lint_off -rule UNDRIVEN  -file "*/SUBTRACTION_*.sv"
+lint_off -rule WIDTH     -file "*/SUBTRACTION__*.sv"
+lint_off -rule DECLFILENAME -file "*/SUBTRACTION_*.sv"
+
+lint_off -rule UNUSED    -file "*/PROJECTION_*.sv"
+lint_off -rule UNDRIVEN  -file "*/PROJECTION_*.sv"
+lint_off -rule WIDTH     -file "*/PROJECTION__*.sv"
+lint_off -rule DECLFILENAME -file "*/PROJECTION_*.sv"
+
+lint_off -rule STMTDLY  -file "*dma_hw_ff_Pro_Sub*"
+lint_off -rule WIDTH    -file "*dma_hw_ff_Pro_Sub*"
+lint_off -rule UNUSED   -file "*dma_hw_ff_Pro_Sub*"
+lint_off -rule UNDRIVEN -file "*dma_hw_ff_Pro_Sub*"
+lint_off -rule DECLFILENAME -file "*dma_hw_ff_Pro_Sub*"
+lint_off -rule SYNCASYNCNET -file "*dma_hw_ff_Pro_Sub*"

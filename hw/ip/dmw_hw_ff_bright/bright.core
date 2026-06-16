@@ -1,0 +1,32 @@
+CAPI=2:
+
+name: polito:isa-lab:bright:1.0.0
+description: Example for dma hardware fifo.
+
+filesets:
+  rtl:
+    files:
+    - rtl/bright_pkg.sv
+    - rtl/brightn.sv
+    - rtl/brillo/BrightnessPixelTop.sv
+    - rtl/brillo/BRIGHT.v
+    - rtl/brillo/BRIGHT_Block_entry1_proc.v
+    - rtl/brillo/BRIGHT_brightness.v
+    - rtl/brillo/BRIGHT_brightness_hpixel_RAM_AUTO_1R1W.v
+    - rtl/brillo/BRIGHT_brightness_Mem_RAM_AUTO_1R1W.v
+    - rtl/brillo/BRIGHT_brightness_Pipeline_brig_p_loop_sum_b_loop.v
+    - rtl/brillo/BRIGHT_brightness_Pipeline_quVectors_b_PES.v
+    - rtl/brillo/BRIGHT_brightness_Pipeline_VITIS_LOOP_226_1.v
+    - rtl/brillo/BRIGHT_flow_control_loop_pipe_sequential_init.v
+    - rtl/brillo/BRIGHT_mul_16s_16s_32_1_1.v
+    - rtl/brillo/BRIGHT_sdiv_45s_48ns_32_49_1.v
+    - bright.vlt : {file_type: vlt}
+    file_type: systemVerilogSource
+
+targets:
+  default: 
+    filesets:
+    - rtl
+    toplevel: brightn
+
+
