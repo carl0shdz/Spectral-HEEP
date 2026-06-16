@@ -1,0 +1,41 @@
+CAPI=2:
+
+name: polito:isa-lab:Pro_Sub:1.0.0
+description: Example for dma hardware fifo.
+
+filesets:
+  rtl:
+    files:
+    - rtl/Pro_Sub_pkg.sv
+    - rtl/Pro_Sub.sv
+    - rtl/Sub/SubtractionPixelTop.sv
+    - rtl/Sub/SUBTRACTION.v
+    - rtl/Sub/SUBTRACTION_Block_entry1_proc.v
+    - rtl/Sub/SUBTRACTION_cpy_xVectors.v
+    - rtl/Sub/SUBTRACTION_cpy_xVectors_Loop_VITIS_LOOP_120_1_proc1.v
+    - rtl/Sub/SUBTRACTION_flow_control_loop_pipe.v
+    - rtl/Sub/SUBTRACTION_mul_32s_32s_44_1_1.v
+    - rtl/Sub/SUBTRACTION_subtracting.v
+    - rtl/Sub/SUBTRACTION_subtracting_p_qVector_RAM_AUTO_1R1W.v
+    - rtl/Pro/ProjectionPixelTop.sv
+    - rtl/Pro/PROJECTION.v
+    - rtl/Pro/PROJECTION_Block_entry1_proc.v
+    - rtl/Pro/PROJECTION_cpy_xVectors.v
+    - rtl/Pro/PROJECTION_cpy_xVectors_Loop_VITIS_LOOP_122_1_proc1.v
+    - rtl/Pro/PROJECTION_flow_control_loop_pipe.v
+    - rtl/Pro/PROJECTION_flow_control_loop_pipe_sequential_init.v
+    - rtl/Pro/PROJECTION_mul_32s_16s_48_1_1.v
+    - rtl/Pro/PROJECTION_mul_33s_16ns_44_1_1.v
+    - rtl/Pro/PROJECTION_projecting.v
+    - rtl/Pro/PROJECTION_projecting_Pipeline_proj_p_loop_proj_b_loop.v
+    - rtl/Pro/PROJECTION_projecting_p_uVector_RAM_AUTO_1R1W.v
+    - Pro_Sub.vlt : {file_type: vlt}
+    file_type: systemVerilogSource
+
+targets:
+  default: 
+    filesets:
+    - rtl
+    toplevel: Pro_Sub
+
+
