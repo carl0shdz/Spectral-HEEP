@@ -11,10 +11,6 @@ module averague_pixel_obi #(
     // Interfaz OBI salida
     input  averague_obi_pkg::obi_req_t  obi_req_i_2,
     output averague_obi_pkg::obi_resp_t obi_rsp_o_2
-
-    // Registros de control
-    //input  averague_reg_pkg::reg_req_t  reg_req_i,
-    //output averague_reg_pkg::reg_resp_t reg_rsp_o
 );
 
   //control reg
@@ -23,8 +19,6 @@ module averague_pixel_obi #(
   //logic done;
   //logic idle;
 
-  //senales temporales
-
   logic        dummy_unused_be = |obi_req_i.be;
   // Señales para FIFO de entrada
   logic        fifo0_wr_en;
@@ -32,7 +26,7 @@ module averague_pixel_obi #(
   logic [15:0] fifo0_din;
   logic [15:0] fifo0_dout;
   logic        fifo0_full;
-  logic        fifo0_empty;  //
+  logic        fifo0_empty;
 
   // Señales para FIFO 1
   logic        fifo1_wr_en;
@@ -41,7 +35,6 @@ module averague_pixel_obi #(
   logic [15:0] fifo1_dout;
   logic        fifo1_full;
   logic        fifo1_empty;
-
 
   logic [15:0] datoin_ave;
   logic        start_ave;
@@ -53,6 +46,19 @@ module averague_pixel_obi #(
   logic [15:0] datout_ave;
   logic [16:0] conta;
   logic [16:0] conta1;
+
+
+  logic        start_dup;
+  logic        done_dup;
+  logic        ready_r_c_dup;
+  logic        valid_r_c_dup;
+  logic [15:0] datoin_cen_dup;
+  logic        ready_r_dup;
+  logic        valid_r_dup;
+  logic [15:0] datoin_dup;
+  logic        ready_w_dup;
+  logic        valid_w_dup;
+  logic [15:0] datout_dup;
 
   // Instancia de FIFO_0 entrada de datos
   FIFO_V1 u_fifo_0 (
@@ -89,17 +95,6 @@ module averague_pixel_obi #(
       .empty(fifo1_empty)
   );
 
-  // Registros de control
-  //averague_control_reg u_ctrl (
-  //    .clk_i  (clk_i),
-  //    .rst_ni (rst_ni),
-  //    .req_i  (reg_req_i),
-  //    .rsp_o  (reg_rsp_o),
-  //    .done_i (done_ave),
-  //    .idle_i (),
-  //    .start_o(start)
-  //);
-
   AveragePixelTop u_AveragePixelTop (
       .rst    (~rst_ni),
       .clk    (clk_i),
@@ -113,7 +108,7 @@ module averague_pixel_obi #(
       .datout (datout_ave)
   );
 
-
+  ///////////////////////////////////////////////////////////AVERAGE_PIXEL_OBI LOGIC///////////////////////////////////////////////////////////
   //Regla #1  Start
   always_ff @(posedge clk_i or negedge rst_ni) begin
     if (!rst_ni) begin
@@ -136,8 +131,6 @@ module averague_pixel_obi #(
     end
   end
   assign start_ave = Flag_state;
-
-
 
   //Regla #2 Canal Stream_In_OBI --> FIFO_0
   localparam OBI_ADDR_DATAIN = 32'hf000_0000;
@@ -167,21 +160,6 @@ module averague_pixel_obi #(
   assign valid_r_ave = ~fifo0_empty;
   assign datoin_ave = fifo0_dout;
 
-
-  /*always_ff @(posedge clk_i or negedge rst_ni) begin
-    if (ready_r_ave || valid_r_ave) begin
-      if (ready_r_ave && valid_r_ave) begin
-        $display("Dato_Va [%d] = %d", conta, datoin_ave);
-      end else begin
-        $display("Dato_In [%d]", conta);
-      end
-      conta <= conta + 1;
-      if (conta == 2000) begin
-        conta <= 0;
-      end
-    end
-  end*/
-
   //Regla #4 AveraguePixel_Module --> FIFO_1
   assign fifo1_din = datout_ave;
   assign fifo1_wr_en = valid_w_ave;
@@ -194,33 +172,30 @@ module averague_pixel_obi #(
   logic [15:0] obi_rdata_q_2;
   //logic pending_read;
 
-  //assign obi_gnt_2 = obi_req_i_2.req;
-  assign obi_gnt_2 = obi_req_i_2.req && (obi_req_i_2.addr == OBI_ADDR_DATAOUT) && !fifo1_empty;
   //assign obi_gnt_2 = obi_req_i_2.req && !obi_req_i_2.we && (obi_req_i_2.addr == OBI_ADDR_DATAOUT) && !pending_read;
   //assign fifo1_rd_en = (pending_read && !fifo1_empty);
-  assign fifo1_rd_en = obi_gnt_2 && !obi_req_i_2.we;
+  assign obi_gnt_2 = obi_req_i_2.req && (obi_req_i_2.addr == OBI_ADDR_DATAOUT) && !fifo1_empty;
+
+
+  assign fifo1_rd_en = (obi_gnt_2 && !obi_req_i_2.we) ? 1'b1 : 1'b0;
   assign obi_rdata_q_2 = fifo1_dout;
+
 
   always_ff @(posedge clk_i or negedge rst_ni) begin
     if (!rst_ni) begin
-      //pending_read   <= 1'b0;
       obi_rvalid_q_2 <= 1'b0;
     end else begin
       //obi_rvalid_q_2 <= 1'b0;
-
       //if (obi_gnt_2) begin
       //  pending_read <= 1'b1;
       //$display("X1");
       //end
-
       //if (pending_read && !fifo1_empty) begin
       //  obi_rvalid_q_2 <= 1'b1;  // Avisamos al DMA que aquí está su dato
       //  pending_read   <= 1'b0;  // Ya no debemos nada
       //$display("X2");
       //end
-
       obi_rvalid_q_2 <= obi_gnt_2;
-      //obi_rdata_q_2  <= fifo1_dout;
     end
   end
 

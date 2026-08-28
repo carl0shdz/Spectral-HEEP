@@ -24,6 +24,13 @@ module BRIGHT (
         ap_idle
 );
 
+////////////////////////////////////
+//always_ff @(posedge ap_clk or negedge ap_rst) begin
+//    if (ap_rst) begin
+//        $display("Reset inside BRIGHT");
+//    end
+//end
+////////////////////////////////////
 
 input  [15:0] ImgBuff_in_dout;
 input   ImgBuff_in_empty_n;

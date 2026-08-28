@@ -13,18 +13,18 @@ filesets:
   # RTL description
   rtl:
     files:
-    - rtl/averague_obi_pkg.sv
-    - rtl/averague_reg_pkg.sv
-    - rtl/averague_pixel_obi.sv
-    - rtl/AveragePixelTop.sv
-    - rtl/Avg_Cent.v
-    - rtl/Avg_Cent_Avg_Cent_Pipeline_cpy_cent.v
-    - rtl/Avg_Cent_Avg_Cent_Pipeline_sum_p_loop_sum_b_loop.v
-    - rtl/Avg_Cent_flow_control_loop_pipe_sequential_init.v
-    - rtl/Avg_Cent_icentroid_RAM_AUTO_1R1W.v
-    - rtl/Avg_Cent_mul_32ns_34ns_65_2_1.v
-    - rtl/FIFO_V1.sv
-    - rtl/FIFO_V2.sv
+    - rtl/centro/averague_obi_pkg.sv
+    - rtl/centro/averague_reg_pkg.sv
+    - rtl/centro/averague_pixel_obi.sv
+    - rtl/centro/AveragePixelTop.sv
+    - rtl/centro/Avg_Cent.v
+    - rtl/centro/Avg_Cent_Avg_Cent_Pipeline_cpy_cent.v
+    - rtl/centro/Avg_Cent_Avg_Cent_Pipeline_sum_p_loop_sum_b_loop.v
+    - rtl/centro/Avg_Cent_flow_control_loop_pipe_sequential_init.v
+    - rtl/centro/Avg_Cent_icentroid_RAM_AUTO_1R1W.v
+    - rtl/centro/Avg_Cent_mul_32ns_34ns_65_2_1.v
+    - rtl/centro/FIFO_V1.sv
+    - rtl/centro/FIFO_V2.sv
     - averague_verilator.vlt : {file_type: vlt}
     #- data/fifo_generator_0.xci : {file_type: xci}
     file_type: systemVerilogSource

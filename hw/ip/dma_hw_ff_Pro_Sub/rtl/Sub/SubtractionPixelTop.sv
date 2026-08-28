@@ -110,7 +110,7 @@ module SubtractionPixelTop (
 
   //testing
 
-  always_ff @(posedge clk or negedge rst) begin : Testing
+  /*always_ff @(posedge clk or negedge rst) begin : Testing
     if (rst) begin
       $display("rst");
     end else begin
@@ -129,5 +129,5 @@ module SubtractionPixelTop (
         //end
       end
     end
-  end
+  end*/
 endmodule

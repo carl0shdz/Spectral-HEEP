@@ -609,15 +609,19 @@ module x_heep_system
       .ext_debug_master_req_o,
       .ext_debug_master_resp_i,
       .ext_dma_read_req_o,
-      .ext_dma_read_resp_i(Wire1),
+      .ext_dma_read_resp_i,
       .ext_dma_write_req_o,
-      .ext_dma_write_resp_i(Wire2),
+      .ext_dma_write_resp_i,
+      //.ext_dma_read_req_o,
+      //.ext_dma_read_resp_i(Wire1),
+      //.ext_dma_write_req_o,
+      //.ext_dma_write_resp_i(Wire2),
       .ext_dma_addr_req_o,
       .ext_dma_addr_resp_i,
-      .hw_fifo_done_i,
+      .hw_fifo_done_i(hw_fifo_done_internal),
       .ext_dma_stop_i,
-      .hw_fifo_req_o,
-      .hw_fifo_resp_i,
+      .hw_fifo_req_o(hw_fifo_req_internal),
+      .hw_fifo_resp_i(hw_fifo_resp_internal),
       .ext_peripheral_slave_req_o,
       .ext_peripheral_slave_resp_i,
       .ext_debug_req_o(ext_debug_req),
@@ -1280,31 +1284,77 @@ module x_heep_system
       .init_no()
   );
 
-  obi_pkg::obi_resp_t [core_v_mini_mcu_pkg::DMA_NUM_MASTER_PORTS-1:0] Wire1;
-  obi_pkg::obi_resp_t [core_v_mini_mcu_pkg::DMA_NUM_MASTER_PORTS-1:0] Wire2;
 
+  //obi_pkg::obi_resp_t [core_v_mini_mcu_pkg::DMA_NUM_MASTER_PORTS-1:0] Wire1;
+  //obi_pkg::obi_resp_t [core_v_mini_mcu_pkg::DMA_NUM_MASTER_PORTS-1:0] Wire2;
+  //obi_pkg::obi_req_t dma_read_req;
+  //obi_pkg::obi_resp_t dma_read_resp;
+  //obi_pkg::obi_req_t dma_write_req;
+  //obi_pkg::obi_resp_t dma_write_resp;
 
+  //assign dma_write_req = ext_dma_write_req_o[0];
+  //assign Wire2[0] = dma_write_resp;
+  //assign dma_read_req = ext_dma_read_req_o[0];
+  //assign Wire1[0] = dma_read_resp;
 
-  /*inoutt_obi #(
-      .W(16)
-  ) inoutt_obi_inst (
-      .clk_i    	(clk_in_x),
-      .rst_ni   	(rst_ngen),
-      .obi_req_i	(ext_dma_write_req_o[0]),
-      .obi_rsp_o	(Wire2[0]),
-      .obi_req_i_2	(ext_dma_read_req_o[0]),
-      .obi_rsp_o_2	(Wire1[0])
-  );*/
+  //assign ext_xbar_master_req_i[0]  = ext_dma_read_req_o[0];
+  //assign ext_dma_read_resp_i[0]   = ext_xbar_master_resp_o[0];
 
-  averague_pixel_obi #(
-      .W(16)
-  ) averague_pixel_obi_insta (
+  //assign ext_xbar_master_req_i[1]  = ext_dma_write_req_o[0];
+  //assign ext_dma_write_resp_i[1]   = ext_xbar_master_resp_o[1];
+
+  fifo_pkg::fifo_req_t [core_v_mini_mcu_pkg::DMA_CH_NUM-1:0] hw_fifo_req_internal;
+  fifo_pkg::fifo_resp_t [core_v_mini_mcu_pkg::DMA_CH_NUM-1:0] hw_fifo_resp_internal;
+  logic [core_v_mini_mcu_pkg::DMA_CH_NUM-1:0] hw_fifo_done_internal;
+
+  dma_hw_ff dma_hw_ff_insta (
       .clk_i(clk_in_x),
-      .rst_ni(rst_ngen),
-      .obi_req_i(ext_dma_write_req_o[0]),
-      .obi_rsp_o(Wire2[0]),
-      .obi_req_i_2(ext_dma_read_req_o[0]),
-      .obi_rsp_o_2(Wire1[0])
+      .rst_ni_x(rst_ngen),
+      .hw_fifo_req_done(hw_fifo_done_internal[0]),
+      .hw_fifo_req_i(hw_fifo_req_internal[0]),
+      .hw_fifo_resp_o(hw_fifo_resp_internal[0])
   );
 
+  dupli dupli_insta (
+      .clk_i(clk_in_x),
+      .rst_ni_x(rst_ngen),
+      .hw_fifo_req_done(hw_fifo_done_internal[1]),
+      .hw_fifo_req_i(hw_fifo_req_internal[1]),
+      .hw_fifo_resp_o(hw_fifo_resp_internal[1])
+  );
+
+  brightn brightn_insta (
+      .clk_i(clk_in_x),
+      .rst_ni_x(rst_ngen),
+      .hw_fifo_req_done(hw_fifo_done_internal[2]),
+      .hw_fifo_req_i(hw_fifo_req_internal[2]),
+      .hw_fifo_resp_o(hw_fifo_resp_internal[2])
+  );
+
+
+  Pro_Sub Pro_Sub_insta (
+      .clk_i(clk_in_x),
+      .rst_ni_x(rst_ngen),
+      .hw_fifo_req_done(hw_fifo_done_internal[3]),
+      .hw_fifo_req_i(hw_fifo_req_internal[3]),
+      .hw_fifo_resp_o(hw_fifo_resp_internal[3])
+
+  );
+
+
+  //averague_pixel_obi #(
+  //    .W(16)
+  //) averague_pixel_obi_insta (
+  //    .clk_i		(clk_in_x),
+  //    .rst_ni		(rst_ngen),
+  //    .obi_req_i	(dma_write_req),
+  //    .obi_rsp_o	(dma_write_resp),
+  //    .obi_req_i_2	(dma_read_req),
+  //    .obi_rsp_o_2	(dma_read_resp)
+  //);
+
+
+
 endmodule  // x_heep_system
+
+

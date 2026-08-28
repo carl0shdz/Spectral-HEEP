@@ -1,6 +1,7 @@
 module dma_hw_ff (
     input logic clk_i,
-    input logic rst_ni,
+    //input logic rst_ni,
+    input logic rst_ni_x,
     // Interfaz hadware fifo
     output hw_fifo_req_done,
     input dma_fifo_pkg::fifo_req_t hw_fifo_req_i,
@@ -13,7 +14,7 @@ module dma_hw_ff (
   logic         done;
   logic         Flag_state;
   logic [ 16:0] conta1;
-
+  logic         rst_ni;
   logic [ 15:0] datoin_ave;
   logic         start_ave;
   logic         valid_r_ave;
@@ -23,16 +24,20 @@ module dma_hw_ff (
   logic         ready_w_ave;
   logic [ 15:0] datout_ave;
 
+  assign rst_ni = rst_ni_x & rst_ni_x_d;
 
   always_ff @(posedge clk_i or negedge rst_ni) begin
     if (!rst_ni) begin
       Flag_state <= 1'b0;
+      //rst_ave <= 1'b0;
     end else begin
+      //rst_ave <= 1'b1;
       if (hw_fifo_req_i.push) begin
         Flag_state <= 1'b1;
         //$display("[%t] START", $time);
       end else if (done_ave) begin
         Flag_state <= 1'b0;
+        //rst_ave <= 1'b0;
         //$display("--Ciclos totales--: %d", conta1);
       end
 
@@ -48,6 +53,7 @@ module dma_hw_ff (
 
   AveragePixelTop u_AveragePixelTop (
       .rst    (~rst_ni),
+      //.rst    (~rst_ave),
       .clk    (clk_i),
       .start  (start_ave),
       .done   (done_ave),
@@ -129,7 +135,7 @@ module dma_hw_ff (
         if (count_q == 15) begin
           count_q <= '0;  // Reseteamos el contador
           done    <= 1'b1;  // ¡Levantamos la bandera de DONE!
-          $display("[%t] DONE ENVIADO AL DMA", $time);
+          $display("[%t] DONE Average", $time);
         end
       end
 
@@ -154,4 +160,13 @@ module dma_hw_ff (
   end
   assign hw_fifo_req_done = done;
 
+  logic rst_ni_x_d;
+  always_ff @(posedge clk_i) begin
+    if (done) begin
+      $display("Reset Average");
+      rst_ni_x_d <= 1'b0;
+    end else begin
+      rst_ni_x_d <= 1'b1;
+    end
+  end
 endmodule

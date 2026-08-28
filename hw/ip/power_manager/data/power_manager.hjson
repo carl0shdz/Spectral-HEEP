@@ -503,6 +503,246 @@
       ]
     }
 
+    { name:     "RAM_4_CLK_GATE",
+      desc:     "Clock-gates the RAM_4 domain",
+      resval:   "0x00000000"
+      swaccess: "rw",
+      hwaccess: "hro",
+      fields: [
+        { bits: "0", name: "RAM_4_CLK_GATE", desc: "Clock-gates the RAM_4 domain" }
+      ]
+    }
+
+    { name:     "POWER_GATE_RAM_BLOCK_4_ACK",
+      desc:     "Used by the ram 4 switch to ack the power manager",
+      resval:   "0x00000000"
+      swaccess: "ro",
+      hwaccess: "hrw",
+      fields: [
+        { bits: "0", name: "POWER_GATE_RAM_BLOCK_4_ACK", desc: "Power Gate Ram Block 4 Ack Reg" }
+      ]
+    }
+
+    { name:     "RAM_4_SWITCH",
+      desc:     "Switch off the RAM_4 domain",
+      resval:   "0x00000000"
+      swaccess: "rw",
+      hwaccess: "hro",
+      fields: [
+        { bits: "0", name: "RAM_4_SWITCH", desc: "Switch off RAM_4 domain" }
+      ]
+    }
+
+    { name:     "RAM_4_WAIT_ACK_SWITCH_ON",
+      desc:     "Wait for the RAM_4 domain switch ack",
+      resval:   "0x00000000"
+      swaccess: "rw",
+      hwaccess: "hro",
+      fields: [
+        { bits: "0", name: "RAM_4_WAIT_ACK_SWITCH_ON", desc: "Wait RAM_4 domain switch ack" }
+      ]
+    }
+
+    { name:     "RAM_4_ISO",
+      desc:     "Set on the isolation of the RAM_4 domain",
+      resval:   "0x00000000"
+      swaccess: "rw",
+      hwaccess: "hro",
+      fields: [
+        { bits: "0", name: "RAM_4_ISO", desc: "Set on isolation of RAM_4 domain" }
+      ]
+    }
+
+    { name:     "RAM_4_RETENTIVE",
+      desc:     "Set on retentive mode for the RAM_4 domain",
+      resval:   "0x00000000"
+      swaccess: "rw",
+      hwaccess: "hro",
+      fields: [
+        { bits: "0", name: "RAM_4_RETENTIVE", desc: "Set on retentive mode for RAM_4 domain" }
+      ]
+    }
+
+    { name:     "RAM_5_CLK_GATE",
+      desc:     "Clock-gates the RAM_5 domain",
+      resval:   "0x00000000"
+      swaccess: "rw",
+      hwaccess: "hro",
+      fields: [
+        { bits: "0", name: "RAM_5_CLK_GATE", desc: "Clock-gates the RAM_5 domain" }
+      ]
+    }
+
+    { name:     "POWER_GATE_RAM_BLOCK_5_ACK",
+      desc:     "Used by the ram 5 switch to ack the power manager",
+      resval:   "0x00000000"
+      swaccess: "ro",
+      hwaccess: "hrw",
+      fields: [
+        { bits: "0", name: "POWER_GATE_RAM_BLOCK_5_ACK", desc: "Power Gate Ram Block 5 Ack Reg" }
+      ]
+    }
+
+    { name:     "RAM_5_SWITCH",
+      desc:     "Switch off the RAM_5 domain",
+      resval:   "0x00000000"
+      swaccess: "rw",
+      hwaccess: "hro",
+      fields: [
+        { bits: "0", name: "RAM_5_SWITCH", desc: "Switch off RAM_5 domain" }
+      ]
+    }
+
+    { name:     "RAM_5_WAIT_ACK_SWITCH_ON",
+      desc:     "Wait for the RAM_5 domain switch ack",
+      resval:   "0x00000000"
+      swaccess: "rw",
+      hwaccess: "hro",
+      fields: [
+        { bits: "0", name: "RAM_5_WAIT_ACK_SWITCH_ON", desc: "Wait RAM_5 domain switch ack" }
+      ]
+    }
+
+    { name:     "RAM_5_ISO",
+      desc:     "Set on the isolation of the RAM_5 domain",
+      resval:   "0x00000000"
+      swaccess: "rw",
+      hwaccess: "hro",
+      fields: [
+        { bits: "0", name: "RAM_5_ISO", desc: "Set on isolation of RAM_5 domain" }
+      ]
+    }
+
+    { name:     "RAM_5_RETENTIVE",
+      desc:     "Set on retentive mode for the RAM_5 domain",
+      resval:   "0x00000000"
+      swaccess: "rw",
+      hwaccess: "hro",
+      fields: [
+        { bits: "0", name: "RAM_5_RETENTIVE", desc: "Set on retentive mode for RAM_5 domain" }
+      ]
+    }
+
+    { name:     "RAM_6_CLK_GATE",
+      desc:     "Clock-gates the RAM_6 domain",
+      resval:   "0x00000000"
+      swaccess: "rw",
+      hwaccess: "hro",
+      fields: [
+        { bits: "0", name: "RAM_6_CLK_GATE", desc: "Clock-gates the RAM_6 domain" }
+      ]
+    }
+
+    { name:     "POWER_GATE_RAM_BLOCK_6_ACK",
+      desc:     "Used by the ram 6 switch to ack the power manager",
+      resval:   "0x00000000"
+      swaccess: "ro",
+      hwaccess: "hrw",
+      fields: [
+        { bits: "0", name: "POWER_GATE_RAM_BLOCK_6_ACK", desc: "Power Gate Ram Block 6 Ack Reg" }
+      ]
+    }
+
+    { name:     "RAM_6_SWITCH",
+      desc:     "Switch off the RAM_6 domain",
+      resval:   "0x00000000"
+      swaccess: "rw",
+      hwaccess: "hro",
+      fields: [
+        { bits: "0", name: "RAM_6_SWITCH", desc: "Switch off RAM_6 domain" }
+      ]
+    }
+
+    { name:     "RAM_6_WAIT_ACK_SWITCH_ON",
+      desc:     "Wait for the RAM_6 domain switch ack",
+      resval:   "0x00000000"
+      swaccess: "rw",
+      hwaccess: "hro",
+      fields: [
+        { bits: "0", name: "RAM_6_WAIT_ACK_SWITCH_ON", desc: "Wait RAM_6 domain switch ack" }
+      ]
+    }
+
+    { name:     "RAM_6_ISO",
+      desc:     "Set on the isolation of the RAM_6 domain",
+      resval:   "0x00000000"
+      swaccess: "rw",
+      hwaccess: "hro",
+      fields: [
+        { bits: "0", name: "RAM_6_ISO", desc: "Set on isolation of RAM_6 domain" }
+      ]
+    }
+
+    { name:     "RAM_6_RETENTIVE",
+      desc:     "Set on retentive mode for the RAM_6 domain",
+      resval:   "0x00000000"
+      swaccess: "rw",
+      hwaccess: "hro",
+      fields: [
+        { bits: "0", name: "RAM_6_RETENTIVE", desc: "Set on retentive mode for RAM_6 domain" }
+      ]
+    }
+
+    { name:     "RAM_7_CLK_GATE",
+      desc:     "Clock-gates the RAM_7 domain",
+      resval:   "0x00000000"
+      swaccess: "rw",
+      hwaccess: "hro",
+      fields: [
+        { bits: "0", name: "RAM_7_CLK_GATE", desc: "Clock-gates the RAM_7 domain" }
+      ]
+    }
+
+    { name:     "POWER_GATE_RAM_BLOCK_7_ACK",
+      desc:     "Used by the ram 7 switch to ack the power manager",
+      resval:   "0x00000000"
+      swaccess: "ro",
+      hwaccess: "hrw",
+      fields: [
+        { bits: "0", name: "POWER_GATE_RAM_BLOCK_7_ACK", desc: "Power Gate Ram Block 7 Ack Reg" }
+      ]
+    }
+
+    { name:     "RAM_7_SWITCH",
+      desc:     "Switch off the RAM_7 domain",
+      resval:   "0x00000000"
+      swaccess: "rw",
+      hwaccess: "hro",
+      fields: [
+        { bits: "0", name: "RAM_7_SWITCH", desc: "Switch off RAM_7 domain" }
+      ]
+    }
+
+    { name:     "RAM_7_WAIT_ACK_SWITCH_ON",
+      desc:     "Wait for the RAM_7 domain switch ack",
+      resval:   "0x00000000"
+      swaccess: "rw",
+      hwaccess: "hro",
+      fields: [
+        { bits: "0", name: "RAM_7_WAIT_ACK_SWITCH_ON", desc: "Wait RAM_7 domain switch ack" }
+      ]
+    }
+
+    { name:     "RAM_7_ISO",
+      desc:     "Set on the isolation of the RAM_7 domain",
+      resval:   "0x00000000"
+      swaccess: "rw",
+      hwaccess: "hro",
+      fields: [
+        { bits: "0", name: "RAM_7_ISO", desc: "Set on isolation of RAM_7 domain" }
+      ]
+    }
+
+    { name:     "RAM_7_RETENTIVE",
+      desc:     "Set on retentive mode for the RAM_7 domain",
+      resval:   "0x00000000"
+      swaccess: "rw",
+      hwaccess: "hro",
+      fields: [
+        { bits: "0", name: "RAM_7_RETENTIVE", desc: "Set on retentive mode for RAM_7 domain" }
+      ]
+    }
+
     { name:     "MONITOR_POWER_GATE_CORE",
       desc:     "Used to monitor the signals to power gate core",
       resval:   "0x00000000"
@@ -560,6 +800,46 @@
       hwaccess: "hwo",
       fields: [
         { bits: "1:0", name: "MONITOR_POWER_GATE_RAM_BLOCK_3", desc: "Monitor Signals Power Gate Ram Block 3 Reg" }
+      ]
+    }
+
+    { name:     "MONITOR_POWER_GATE_RAM_BLOCK_4",
+      desc:     "Used to monitor the signals to power gate ram block 4",
+      resval:   "0x00000000"
+      swaccess: "ro",
+      hwaccess: "hwo",
+      fields: [
+        { bits: "1:0", name: "MONITOR_POWER_GATE_RAM_BLOCK_4", desc: "Monitor Signals Power Gate Ram Block 4 Reg" }
+      ]
+    }
+
+    { name:     "MONITOR_POWER_GATE_RAM_BLOCK_5",
+      desc:     "Used to monitor the signals to power gate ram block 5",
+      resval:   "0x00000000"
+      swaccess: "ro",
+      hwaccess: "hwo",
+      fields: [
+        { bits: "1:0", name: "MONITOR_POWER_GATE_RAM_BLOCK_5", desc: "Monitor Signals Power Gate Ram Block 5 Reg" }
+      ]
+    }
+
+    { name:     "MONITOR_POWER_GATE_RAM_BLOCK_6",
+      desc:     "Used to monitor the signals to power gate ram block 6",
+      resval:   "0x00000000"
+      swaccess: "ro",
+      hwaccess: "hwo",
+      fields: [
+        { bits: "1:0", name: "MONITOR_POWER_GATE_RAM_BLOCK_6", desc: "Monitor Signals Power Gate Ram Block 6 Reg" }
+      ]
+    }
+
+    { name:     "MONITOR_POWER_GATE_RAM_BLOCK_7",
+      desc:     "Used to monitor the signals to power gate ram block 7",
+      resval:   "0x00000000"
+      swaccess: "ro",
+      hwaccess: "hwo",
+      fields: [
+        { bits: "1:0", name: "MONITOR_POWER_GATE_RAM_BLOCK_7", desc: "Monitor Signals Power Gate Ram Block 7 Reg" }
       ]
     }
 

@@ -1,6 +1,7 @@
 module brightn (
     input logic clk_i,
-    input logic rst_ni,
+    //input logic rst_ni,
+    input logic rst_ni_x,
     // Interfaz hadware fifo
     output hw_fifo_req_done,
     input bright_pkg::fifo_req_t hw_fifo_req_i,
@@ -13,7 +14,7 @@ module brightn (
   logic         done;
   logic         Flag_state;
   logic [ 16:0] conta1;
-
+  logic         rst_ni;  //////////////////////////////////////
   logic [ 31:0] datoin_ave;
   logic         start_ave;
   logic         valid_r_ave;
@@ -22,17 +23,22 @@ module brightn (
   logic         ready_r_ave;
   logic         ready_w_ave;
   logic [ 31:0] datout_ave;
+  //logic         rst_ave;  /////////////////////////////////////
 
+  assign rst_ni = rst_ni_x & rst_ni_x_d;  //////////////////////////////////////
 
   always_ff @(posedge clk_i or negedge rst_ni) begin
     if (!rst_ni) begin
-      Flag_state <= 1'b0;
+      //rst_ave    <= 1'b0;
+      Flag_state <= 1'b0;  //////////////////////////////////////
     end else begin
+      //rst_ave <= 1'b1;  //////////////////////////////////////
       if (hw_fifo_req_i.push) begin
         Flag_state <= 1'b1;
         //$display("[%t] START", $time);
       end else if (done_ave) begin
         Flag_state <= 1'b0;
+        //rst_ave    <= 1'b0;  ///////////////////////////////////////
         //$display("--Ciclos totales--: %d", conta1);
       end
 
@@ -48,6 +54,7 @@ module brightn (
 
   BrightnessPixelTop u_BrightnessPixelTop (
       .rst    (~rst_ni),
+      //.rst    (~rst_ave),     //////////////////////////////////////
       .clk    (clk_i),
       .start  (start_ave),
       .done   (done_ave),
@@ -129,7 +136,7 @@ module brightn (
         if (count_q == 33) begin			//34 datos 1 de brightness, 1 de index, brightness, 16 de qVector y 16 de uVector		
           count_q <= '0;  // Reseteamos el contador
           done    <= 1'b1;  // ¡Levantamos la bandera de DONE!
-          $display("[%t] DONE ENVIADO AL DMA", $time);
+          $display("[%t] DONE Brightness", $time);
         end
       end
 
@@ -152,6 +159,17 @@ module brightn (
     //  $display("[%t] AVE IN: %d", $time, datoin_ave);
     //end
   end
+
   assign hw_fifo_req_done = done;
+
+  logic rst_ni_x_d;
+  always_ff @(posedge clk_i) begin
+    if (done) begin
+      $display("Reset Brightness");
+      rst_ni_x_d <= 1'b0;
+    end else begin
+      rst_ni_x_d <= 1'b1;
+    end
+  end
 
 endmodule

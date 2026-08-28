@@ -1,6 +1,7 @@
 module dupli (
     input logic clk_i,
-    input logic rst_ni,
+    //input logic rst_ni,
+    input logic rst_ni_x,
     // Interfaz hadware fifo
     output hw_fifo_req_done,
     input dma_fifo_pkg::fifo_req_t hw_fifo_req_i,
@@ -13,7 +14,7 @@ module dupli (
   logic         done;
   logic         Flag_state;
   logic [ 16:0] conta1;
-
+  logic         rst_ni;
   logic [ 15:0] datoin_dup;
   logic         start_dup;
   logic         valid_r_dup;
@@ -23,15 +24,19 @@ module dupli (
   logic         ready_w_dup;
   logic [ 15:0] datout_dup;
 
+  assign rst_ni = rst_ni_x & rst_ni_x_d;
 
   always_ff @(posedge clk_i or negedge rst_ni) begin
     if (!rst_ni) begin
       Flag_state <= 1'b0;
+      //rst_dup <= 1'b0;
     end else begin
+      //rst_dup <= 1'b1;
       if (hw_fifo_req_i.push) begin
         Flag_state <= 1'b1;
       end else if (done_dup) begin
         Flag_state <= 1'b0;
+        //rst_dup <= 1'b0;
         //$display("--Ciclos totales--: %d", conta1);
       end
 
@@ -47,6 +52,7 @@ module dupli (
 
   DupliTop u_DupliTop (
       .rst    (~rst_ni),
+      //.rst    (~rst_dup),
       .clk    (clk_i),
       .start  (start_dup),
       .done   (done_dup),
@@ -128,7 +134,7 @@ module dupli (
         if (count_q == 1919) begin
           count_q <= '0;  // Reseteamos el contador
           done    <= 1'b1;  // ¡Levantamos la bandera de DONE!
-          $display("[%t] DONE ENVIADO AL DMA", $time);
+          $display("[%t] DONE Centralized", $time);
         end
       end
 
@@ -152,5 +158,15 @@ module dupli (
     //end
   end
   assign hw_fifo_req_done = done;
+
+  logic rst_ni_x_d;
+  always_ff @(posedge clk_i) begin
+    if (done) begin
+      $display("Reset Centralized");
+      rst_ni_x_d <= 1'b0;
+    end else begin
+      rst_ni_x_d <= 1'b1;
+    end
+  end
 
 endmodule

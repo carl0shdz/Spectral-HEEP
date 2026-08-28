@@ -2,7 +2,7 @@
 `verilator_config
 
 // -------------------------------------------------------------
-// HLS top module
+// HLS top module centra
 // -------------------------------------------------------------
 
 lint_off -rule UNUSED    -file "*/Avg_Cent.v"
@@ -11,13 +11,31 @@ lint_off -rule WIDTH     -file "*/Avg_Cent.v"
 lint_off -rule DECLFILENAME -file "*/Avg_Cent.v"
 
 // -------------------------------------------------------------
-// HLS generated submodules
+// HLS generated submodules centra
 // -------------------------------------------------------------
 
 lint_off -rule UNUSED    -file "*/Avg_Cent_*.sv"
 lint_off -rule UNDRIVEN  -file "*/Avg_Cent_*.sv"
 lint_off -rule WIDTH     -file "*/Avg_Cent_*.sv"
 lint_off -rule DECLFILENAME -file "*/Avg_Cent_*.sv"
+
+// -------------------------------------------------------------
+// HLS top module duplicate
+// -------------------------------------------------------------
+
+lint_off -rule UNUSED    -file "*/Avg_dup.v"
+lint_off -rule UNDRIVEN  -file "*/Avg_dup.v"
+lint_off -rule WIDTH     -file "*/Avg_dup.v"
+lint_off -rule DECLFILENAME -file "*/Avg_dup.v"
+
+// -------------------------------------------------------------
+// HLS generated submodules duplicate
+// -------------------------------------------------------------
+
+lint_off -rule UNUSED    -file "*/Avg_dup_*.sv"
+lint_off -rule UNDRIVEN  -file "*/Avg_dup_*.sv"
+lint_off -rule WIDTH     -file "*/Avg_dup_*.sv"
+lint_off -rule DECLFILENAME -file "*/Avg_dup_*.sv"
 
 // -------------------------------------------------------------
 // HLS RAM blocks

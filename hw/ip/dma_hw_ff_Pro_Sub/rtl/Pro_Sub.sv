@@ -1,6 +1,7 @@
 module Pro_Sub (
     input logic clk_i,
-    input logic rst_ni,
+    //input logic rst_ni,
+    input logic rst_ni_x,
     // Interfaz hadware fifo
     output hw_fifo_req_done,
     input Pro_Sub_pkg::fifo_req_t hw_fifo_req_i,
@@ -29,7 +30,7 @@ module Pro_Sub (
   logic         valid_w_sub;
   logic         done_pro;
   logic         done_sub;
-
+  logic         rst_ni;
 
   logic         ready_r_pro;
   logic         ready_r_sub;
@@ -43,16 +44,19 @@ module Pro_Sub (
   logic [ 31:0] datout_pro_p;
   logic [ 31:0] datout_sub;
 
-
+  assign rst_ni = rst_ni_x & rst_ni_x_d;
   always_ff @(posedge clk_i or negedge rst_ni) begin
     if (!rst_ni) begin
       Flag_state <= 1'b0;
+      //rst_sub_pro <= 1'b0;
     end else begin
+      //rst_sub_pro <= 1'b1;
       if (hw_fifo_req_i.push) begin
         Flag_state <= 1'b1;
         //$display("[%t] START", $time);
       end else if (done) begin
         Flag_state <= 1'b0;
+        //rst_sub_pro <= 1'b0;
         //$display("--Ciclos totales--: %d", conta1);
       end
 
@@ -68,6 +72,7 @@ module Pro_Sub (
 
   ProjectionPixelTop u_ProjectionPixelTop (
       .rst(~rst_ni),
+      //.rst(~rst_sub_pro),
       .clk(clk_i),
       .start(start_pro),
       .done(done_pro),
@@ -87,6 +92,7 @@ module Pro_Sub (
 
   SubtractionPixelTop u_SubtractionPixelTop (
       .rst(~rst_ni),
+      //.rst(~rst_sub_pro),
       .clk(clk_i),
       .start(start_pro),
       .done(done_sub),
@@ -244,7 +250,7 @@ module Pro_Sub (
         if (count_q == 1919) begin  //1920 datos para un bloque de salida	
           count_q <= '0;  // Reseteamos el contador
           done    <= 1'b1;  // ¡Levantamos la bandera de DONE!
-          $display("[%t] DONE ENVIADO AL DMA", $time);
+          $display("[%t] DONE Projection and Substraction", $time);
         end
       end
     end
@@ -274,5 +280,15 @@ module Pro_Sub (
     //end
   end
   assign hw_fifo_req_done = done;
+
+  logic rst_ni_x_d;
+  always_ff @(posedge clk_i) begin
+    if (done) begin
+      $display("Reset Projection  and Substraction");
+      rst_ni_x_d <= 1'b0;
+    end else begin
+      rst_ni_x_d <= 1'b1;
+    end
+  end
 
 endmodule
