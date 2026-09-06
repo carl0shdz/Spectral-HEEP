@@ -10,18 +10,15 @@
 #define PIXEL_RESULT_OFFSET (EXT_SLAVE_START_ADDRESS + 0x0004)
 
 #define INPUT_SIZE 1920
+//#define INPUT_SIZE 1024*160
 #define OUTPUT_SIZE 16
-#define DMA_CHANNEL 0
+#define DMA_CHANNEL_tx 0
+#define DMA_CHANNEL_rx 1
 
 #define RAM2_BASE  ((uint32_t *)0x00010000)
 
 uint32_t *RAM_scr = RAM2_BASE;
 uint32_t *RAM_dst = RAM2_BASE + INPUT_SIZE;
-
-//static uint32_t RAM_scr[INPUT_SIZE] __attribute__((aligned(4)));
-//static uint32_t RAM_dst[OUTPUT_SIZE] __attribute__((aligned(4)));
-
-
 
 int main(void) {
     dma_trans_t trans_w, trans_r;
@@ -50,11 +47,17 @@ int main(void) {
     
     trans_w.src = &tgt_src_w;
     trans_w.dst = &tgt_dst_w;
+    trans_w.channel = DMA_CHANNEL_tx;
     trans_w.size_d1_du = INPUT_SIZE;
     trans_w.mode = DMA_TRANS_MODE_SINGLE;  		// Modo simple
     trans_w.win_du = 0;
     trans_w.end = DMA_TRANS_END_INTR;       	// Notificar con interrupción
     
+    rsp_w = dma_validate_transaction(&trans_w, DMA_ENABLE_REALIGN, DMA_PERFORM_CHECKS_INTEGRITY);
+    //printf("valid W: %u", rsp_w);
+    rsp_w = dma_load_transaction(&trans_w);
+    //printf("load W: %u \t\n\r", rsp_w);
+
     //printf("Iniciando transferencia DMA Lectura en AveragePixel...\n\r");
     // Configurar fuente
     tgt_src_r.ptr = (uint8_t *)PIXEL_RESULT_OFFSET;
@@ -69,40 +72,31 @@ int main(void) {
 
     trans_r.src = &tgt_src_r;
     trans_r.dst = &tgt_dst_r;
+    trans_r.channel = DMA_CHANNEL_rx;
     trans_r.size_d1_du = OUTPUT_SIZE;
     trans_r.mode = DMA_TRANS_MODE_SINGLE;  		
     trans_r.win_du = 0;
     trans_r.end = DMA_TRANS_END_INTR;       	// Notificar con interrupción
 
-    rsp_w = dma_validate_transaction(&trans_w, DMA_ENABLE_REALIGN, DMA_PERFORM_CHECKS_INTEGRITY);
-    //printf("valid: %u \t\n\r", rsp);
-    rsp_w = dma_load_transaction(&trans_w);
-    //printf("load: %u \t\n\r", rsp);
-    timer_start();					//estrategicamente se debe medir en este punto
-    rsp_w = dma_launch(&trans_w);
-    //printf("launch: %u \t\n\r", rsp);
-    
-    while (!dma_is_ready(DMA_CHANNEL))
-    //printf("TX done\n\r");
-    
     rsp_r = dma_validate_transaction(&trans_r, DMA_ENABLE_REALIGN, DMA_PERFORM_CHECKS_INTEGRITY);
-    //printf("valid: %u \n\r", rsp);
+    //printf("valid R: %u \n\r", rsp_r);
     rsp_r = dma_load_transaction(&trans_r);
-    //printf("load: %u \n\r", rsp);
-    rsp_r = dma_launch(&trans_r);
-    //printf("launch: %u \n\r", rsp);
+    //printf("load R: %u \n\r", rsp_r);
     
-    while (!dma_is_ready(DMA_CHANNEL));
-    //printf("RX done\n\r");
+    timer_start();				
+    rsp_w = dma_launch(&trans_w);
+    while (!dma_is_ready(DMA_CHANNEL_tx)){};
+
+    rsp_r = dma_launch(&trans_r);
+    while (!dma_is_ready(DMA_CHANNEL_rx)){};
+    
     //timer_start();
     total_cycles = timer_stop();
     printf("Ciclos de reloj: %u cc\n\r", total_cycles);
-    printf("Tiempo apro: %u us\n\r", (uint32_t)get_time_from_cycles(total_cycles));
+    printf("Tiempo: %u us\n\r", (uint32_t)get_time_from_cycles(total_cycles));
     
     for (int i = 0; i < OUTPUT_SIZE; i++) {
-    	printf("R%d = %u\n\r", i, RAM_dst[i]);
+    	printf(" %u\n\r", RAM_dst[i]);
     }
     return 0;
 }
-
-
